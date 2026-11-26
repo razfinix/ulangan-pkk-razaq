@@ -11,16 +11,18 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700&display=swap"
     rel="stylesheet" />
+
   <style>
     :root {
-      --primary: #131d4b;
-      --primary-dark: #0d1433;
-      --primary-light: #2a3a7a;
-      --gold: #c9a227;
-      --gold-light: #e8d48b;
-      --cream: #f7f1e5;
-      --text: #1f2a26;
-      --text-light: #4a5c55;
+      --primary: #101a35;
+      --primary-dark: #070d1b;
+      --primary-light: #24385b;
+      --gold: #c7a86a;
+      --gold-light: #f0dfb4;
+      --cream: #f6f0e5;
+      --text: #f3ecdf;
+      --text-light: #c7bdab;
+      --luxury-shadow: 0 24px 70px rgba(0, 0, 0, .34);
     }
 
     * {
@@ -31,28 +33,72 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 90px;
     }
 
     body {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      background: var(--primary-dark);
-      color: var(--text);
+      background: #080e1b;
+      color: var(--cream);
       line-height: 1.65;
       overflow-x: hidden;
+      letter-spacing: .015em;
     }
 
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse at 15% 12%, rgba(199, 168, 106, .10), transparent 34%),
+        radial-gradient(ellipse at 85% 70%, rgba(43, 67, 105, .22), transparent 40%);
+    }
+
+    /* ===== COVER ===== */
     .cover {
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: linear-gradient(165deg, var(--primary-dark) 0%, var(--primary) 45%, #0a1028 100%);
+      background:
+        radial-gradient(ellipse at center, rgba(35, 52, 82, .94), rgba(6, 11, 23, .99) 72%),
+        linear-gradient(135deg, #070d1b, #142342);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       padding: 2rem;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
+      overflow: hidden;
+      transition: opacity 0.9s ease, visibility 0.9s ease;
+    }
+
+    .cover::before,
+    .cover::after {
+      content: "";
+      position: absolute;
+      width: min(72vw, 620px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(199, 168, 106, .22);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .cover::before {
+      transform: scale(.82);
+      box-shadow: 0 0 0 22px rgba(199, 168, 106, .025), 0 0 0 44px rgba(199, 168, 106, .025);
+    }
+
+    .cover::after {
+      transform: scale(1.08);
+      border-style: dashed;
+      opacity: .45;
+    }
+
+    .cover>* {
+      position: relative;
+      z-index: 1;
     }
 
     .cover.hide {
@@ -101,6 +147,7 @@
       width: 110px;
       height: 110px;
       margin-bottom: 1.3rem;
+      filter: drop-shadow(0 0 18px rgba(199, 168, 106, .3));
     }
 
     .cover-ornament svg {
@@ -113,7 +160,7 @@
       font-size: 0.85rem;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--gold-light);
       margin-bottom: 0.8rem;
       font-weight: 500;
     }
@@ -125,6 +172,7 @@
       font-weight: 600;
       line-height: 1.25;
       max-width: 340px;
+      text-shadow: 0 8px 35px rgba(0, 0, 0, .38);
     }
 
     .cover .subtitle {
@@ -152,24 +200,25 @@
     }
 
     .btn-open {
-      background: linear-gradient(135deg, var(--gold) 0%, #a88b1f 100%);
-      color: var(--primary-dark);
-      border: none;
+      background: linear-gradient(135deg, #d8bd83, #a9874d);
+      color: #111a2b;
+      border: 1px solid var(--gold);
       padding: 0.95rem 2.6rem;
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.1rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
-      border-radius: 50px;
+      border-radius: 2px;
       cursor: pointer;
-      box-shadow: 0 8px 24px rgba(201, 162, 39, 0.3);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, .24);
       transition: all 0.3s ease;
     }
 
     .btn-open:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(201, 162, 39, 0.45);
+      box-shadow: 0 16px 36px rgba(199, 168, 106, .25);
+      filter: brightness(1.06);
     }
 
     .cover-footer {
@@ -180,6 +229,7 @@
       letter-spacing: 1.5px;
     }
 
+    /* ===== MAIN ===== */
     .main {
       display: none;
       opacity: 0;
@@ -209,8 +259,10 @@
     .section-title h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.7rem;
-      color: var(--gold);
+      color: var(--gold-light);
       font-weight: 500;
+      letter-spacing: .035em;
+      text-shadow: 0 8px 35px rgba(0, 0, 0, .38);
     }
 
     .section-title .line {
@@ -235,16 +287,34 @@
       opacity: 0.75;
     }
 
+    /* ===== HERO ===== */
     .hero {
-      background: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary) 100%);
+      min-height: min(850px, 100svh);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(6, 11, 23, .42), rgba(6, 11, 23, .92)),
+        radial-gradient(ellipse at 50% 38%, rgba(46, 67, 101, .58), transparent 58%);
+      border-bottom: 1px solid rgba(199, 168, 106, .22);
       color: var(--cream);
       text-align: center;
       padding-top: 3.8rem;
       padding-bottom: 3.8rem;
-      min-height: 92vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 24px;
+      border: 1px solid rgba(199, 168, 106, .2);
+      pointer-events: none;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 1;
     }
 
     .hero .salam {
@@ -260,19 +330,22 @@
       color: var(--gold-light);
       line-height: 1.3;
       margin-bottom: 0.4rem;
+      text-shadow: 0 8px 35px rgba(0, 0, 0, .38);
     }
 
     .hero .tagline {
       font-family: 'Great Vibes', cursive;
       font-size: 1.7rem;
-      color: var(--gold);
+      color: var(--gold-light);
       margin-bottom: 1.3rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
     }
 
     .hero .date-main {
       font-size: 1.1rem;
       letter-spacing: 2.5px;
-      color: var(--gold);
+      color: var(--gold-light);
       text-transform: uppercase;
       margin-bottom: 0.4rem;
     }
@@ -294,12 +367,14 @@
     }
 
     .countdown-item {
-      background: rgba(0, 0, 0, 0.22);
-      border: 1px solid rgba(201, 162, 39, 0.3);
-      border-radius: 12px;
+      background: rgba(12, 21, 39, .72);
+      border: 1px solid rgba(199, 168, 106, .38);
+      border-radius: 3px;
       padding: 0.85rem 0.65rem;
       min-width: 68px;
       text-align: center;
+      box-shadow: var(--luxury-shadow);
+      backdrop-filter: blur(12px);
     }
 
     .countdown-item .num {
@@ -318,16 +393,50 @@
       margin-top: 0.15rem;
     }
 
-    .about {
-      background: var(--cream);
+    /* ===== SECTIONS ===== */
+    .about,
+    .rundown,
+    .highlights,
+    .gallery,
+    .rsvp,
+    .info,
+    .thanks {
+      position: relative;
+      background: linear-gradient(180deg, #0a1222, #0d1729);
+      color: var(--cream);
+    }
+
+    .about::before,
+    .rundown::before,
+    .highlights::before,
+    .gallery::before,
+    .rsvp::before,
+    .info::before,
+    .thanks::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 8%;
+      right: 8%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(199, 168, 106, .45), transparent);
+    }
+
+    .about-card,
+    .event-card,
+    .highlight-item,
+    .info-card,
+    .rsvp-form {
+      background: linear-gradient(145deg, rgba(26, 41, 65, .9), rgba(12, 21, 37, .96));
+      border: 1px solid rgba(199, 168, 106, .22);
+      border-radius: 4px;
+      color: var(--cream);
+      box-shadow: var(--luxury-shadow);
+      backdrop-filter: blur(8px);
     }
 
     .about-card {
-      background: #fff;
-      border-radius: 16px;
       padding: 1.8rem 1.4rem;
-      box-shadow: 0 8px 28px rgba(26, 60, 52, 0.07);
-      border: 1px solid rgba(201, 162, 39, 0.18);
       text-align: center;
     }
 
@@ -338,27 +447,20 @@
     }
 
     .about-card .highlight {
-      color: var(--primary);
+      color: var(--gold-light);
       font-weight: 600;
     }
 
-    .rundown {
-      background: linear-gradient(180deg, #f3ede0 0%, var(--cream) 100%);
-    }
-
     .event-card {
-      background: #fff;
-      border-radius: 14px;
       padding: 1.5rem 1.3rem;
       margin-bottom: 1.1rem;
-      box-shadow: 0 5px 20px rgba(26, 60, 52, 0.06);
       border-left: 4px solid var(--gold);
     }
 
     .event-card h3 {
       font-family: 'Playfair Display', serif;
       font-size: 1.25rem;
-      color: var(--primary);
+      color: var(--gold-light);
       margin-bottom: 0.6rem;
       display: flex;
       align-items: center;
@@ -387,13 +489,13 @@
       gap: 0.55rem;
       margin-bottom: 0.4rem;
       font-size: 1.02rem;
-      color: var(--text);
+      color: var(--text-light);
     }
 
     .event-detail svg {
       width: 17px;
       height: 17px;
-      fill: var(--primary);
+      fill: var(--gold);
       flex-shrink: 0;
       margin-top: 3px;
       opacity: 0.75;
@@ -403,43 +505,27 @@
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      background: var(--primary);
-      color: var(--gold-light);
+      background: linear-gradient(135deg, #d8bd83, #a9874d);
+      color: #111a2b;
       text-decoration: none;
       padding: 0.5rem 1.15rem;
-      border-radius: 50px;
+      border-radius: 2px;
       font-size: 0.9rem;
-      font-weight: 600;
+      font-weight: 700;
       margin-top: 0.7rem;
+      border: 1px solid var(--gold);
       transition: all 0.25s;
     }
 
     .btn-map:hover {
-      background: var(--primary-light);
       transform: translateY(-2px);
+      filter: brightness(1.06);
     }
 
     .btn-map svg {
       width: 15px;
       height: 15px;
-      fill: var(--gold-light);
-    }
-
-    .highlights {
-      background: var(--primary);
-      color: var(--cream);
-    }
-
-    .highlights .section-title h2 {
-      color: var(--gold-light);
-    }
-
-    .highlights .section-title .line span {
-      background: var(--gold-light);
-    }
-
-    .highlights .section-title .line svg {
-      fill: var(--gold-light);
+      fill: #111a2b;
     }
 
     .highlight-grid {
@@ -449,9 +535,6 @@
     }
 
     .highlight-item {
-      background: rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(201, 162, 39, 0.25);
-      border-radius: 12px;
       padding: 1.2rem 0.9rem;
       text-align: center;
     }
@@ -459,6 +542,7 @@
     .highlight-item .emoji {
       font-size: 1.8rem;
       margin-bottom: 0.4rem;
+      filter: drop-shadow(0 5px 12px rgba(199, 168, 106, .2));
     }
 
     .highlight-item h4 {
@@ -470,27 +554,24 @@
 
     .highlight-item p {
       font-size: 0.9rem;
-      color: rgba(247, 241, 229, 0.75);
+      color: var(--text-light);
     }
 
-    /* GALERI */
-    .gallery {
-      background: var(--cream);
-    }
-
+    /* ===== GALERI ===== */
     .gallery-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.8rem;
+      gap: 18px;
     }
 
     .gallery-item {
       position: relative;
       aspect-ratio: 1;
-      border-radius: 12px;
+      border-radius: 3px;
       overflow: hidden;
-      background: #e0d8c8;
-      border: 2px solid rgba(201, 162, 39, 0.35);
+      background: #111d31;
+      border: 1px solid rgba(199, 168, 106, .35);
+      box-shadow: var(--luxury-shadow);
     }
 
     .gallery-item img {
@@ -498,11 +579,12 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.4s ease;
+      transition: transform 0.8s cubic-bezier(.2, .7, .2, 1), filter 0.5s;
     }
 
     .gallery-item:hover img {
-      transform: scale(1.08);
+      transform: scale(1.07);
+      filter: brightness(1.08);
     }
 
     .gallery-item .ph {
@@ -512,9 +594,10 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: var(--primary);
+      color: var(--gold-light);
       font-size: 0.85rem;
       text-align: center;
+      background: #111d31;
     }
 
     .gallery-item .ph span {
@@ -522,16 +605,9 @@
       margin-bottom: 0.25rem;
     }
 
-    .rsvp {
-      background: #f3ede0;
-    }
-
+    /* ===== RSVP ===== */
     .rsvp-form {
-      background: #fff;
-      border-radius: 16px;
       padding: 1.8rem 1.4rem;
-      box-shadow: 0 8px 28px rgba(26, 60, 52, 0.07);
-      border: 1px solid rgba(201, 162, 39, 0.18);
     }
 
     .form-group {
@@ -542,7 +618,7 @@
       display: block;
       font-size: 0.95rem;
       font-weight: 600;
-      color: var(--primary);
+      color: var(--gold-light);
       margin-bottom: 0.35rem;
     }
 
@@ -551,11 +627,12 @@
     .form-group textarea {
       width: 100%;
       padding: 0.72rem 0.95rem;
-      border: 1px solid #d5d0c5;
-      border-radius: 10px;
+      border: 1px solid rgba(199, 168, 106, .3);
+      border-radius: 3px;
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.05rem;
-      background: #faf9f6;
+      background: rgba(5, 11, 22, .65);
+      color: var(--cream);
       transition: border-color 0.2s;
     }
 
@@ -563,7 +640,8 @@
     .form-group select:focus,
     .form-group textarea:focus {
       outline: none;
-      border-color: var(--gold);
+      border-color: var(--gold-light);
+      box-shadow: 0 0 0 3px rgba(199, 168, 106, .12);
     }
 
     .form-group textarea {
@@ -573,15 +651,15 @@
 
     .btn-submit {
       width: 100%;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-      color: var(--gold-light);
-      border: none;
+      background: linear-gradient(135deg, #d8bd83, #a9874d);
+      color: #111a2b;
+      border: 1px solid var(--gold);
       padding: 0.9rem;
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.12rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 1px;
-      border-radius: 50px;
+      border-radius: 2px;
       cursor: pointer;
       transition: all 0.3s;
       margin-top: 0.4rem;
@@ -589,26 +667,19 @@
 
     .btn-submit:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 18px rgba(26, 60, 52, 0.22);
-    }
-
-    .info {
-      background: linear-gradient(180deg, #f3ede0 0%, var(--cream) 100%);
+      box-shadow: 0 16px 36px rgba(199, 168, 106, .25);
+      filter: brightness(1.06);
     }
 
     .info-card {
-      background: #fff;
-      border-radius: 14px;
       padding: 1.4rem 1.3rem;
       margin-bottom: 1rem;
-      box-shadow: 0 5px 18px rgba(26, 60, 52, 0.06);
-      border: 1px solid rgba(201, 162, 39, 0.15);
     }
 
     .info-card h3 {
       font-family: 'Playfair Display', serif;
       font-size: 1.15rem;
-      color: var(--primary);
+      color: var(--gold-light);
       margin-bottom: 0.5rem;
     }
 
@@ -619,8 +690,6 @@
     }
 
     .thanks {
-      background: var(--primary-dark);
-      color: var(--cream);
       text-align: center;
       padding: 3.8rem 1.4rem;
     }
@@ -630,6 +699,7 @@
       font-size: 2.6rem;
       color: var(--gold-light);
       margin-bottom: 0.9rem;
+      text-shadow: 0 8px 35px rgba(0, 0, 0, .38);
     }
 
     .thanks p {
@@ -637,16 +707,17 @@
       max-width: 370px;
       margin: 0 auto 1.2rem;
       line-height: 1.7;
-      color: rgba(247, 241, 229, 0.85);
+      color: var(--text-light);
     }
 
     .thanks .org {
       font-family: 'Playfair Display', serif;
       font-size: 1.2rem;
-      color: var(--gold);
+      color: var(--gold-light);
       letter-spacing: 0.5px;
     }
 
+    /* ===== MUSIC BUTTON ===== */
     .music-btn {
       position: fixed;
       bottom: 18px;
@@ -654,15 +725,16 @@
       width: 46px;
       height: 46px;
       border-radius: 50%;
-      background: var(--primary);
-      border: 2px solid var(--gold);
+      background: rgba(199, 168, 106, .95);
+      border: 1px solid var(--gold-light);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       z-index: 100;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, .35);
       transition: all 0.3s;
+      color: #0a1222;
     }
 
     .music-btn:hover {
@@ -672,7 +744,7 @@
     .music-btn svg {
       width: 20px;
       height: 20px;
-      fill: var(--gold);
+      fill: #0a1222;
     }
 
     .music-btn.playing {
@@ -691,6 +763,7 @@
       }
     }
 
+    /* ===== PETALS ===== */
     .petal {
       position: fixed;
       width: 9px;
@@ -723,6 +796,56 @@
       }
     }
 
+    /* ===== REVEAL ===== */
+    .js-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .8s ease, transform .8s cubic-bezier(.2, .7, .2, 1);
+    }
+
+    .js-reveal.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+
+      .js-reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .hero {
+        min-height: 88svh;
+      }
+
+      .hero::before {
+        inset: 12px;
+      }
+
+      .gallery-grid {
+        gap: 10px;
+      }
+
+      .about-card,
+      .event-card,
+      .highlight-item,
+      .info-card,
+      .rsvp-form {
+        box-shadow: 0 12px 35px rgba(0, 0, 0, .24);
+      }
+    }
+
     @media (max-width: 400px) {
       .countdown-item {
         min-width: 58px;
@@ -741,19 +864,30 @@
 </head>
 
 <body>
+
+  <!-- COVER -->
   <div class="cover" id="cover">
-    <div class="corner corner-tl"><svg viewBox="0 0 100 100">
+    <div class="corner corner-tl">
+      <svg viewBox="0 0 100 100">
         <path d="M0,0 L38,0 Q28,18 38,38 L0,38 Q18,28 0,0 Z M10,10 L24,10 Q19,19 24,24 L10,24 Q15,19 10,10 Z" />
-      </svg></div>
-    <div class="corner corner-tr"><svg viewBox="0 0 100 100">
+      </svg>
+    </div>
+    <div class="corner corner-tr">
+      <svg viewBox="0 0 100 100">
         <path d="M0,0 L38,0 Q28,18 38,38 L0,38 Q18,28 0,0 Z M10,10 L24,10 Q19,19 24,24 L10,24 Q15,19 10,10 Z" />
-      </svg></div>
-    <div class="corner corner-bl"><svg viewBox="0 0 100 100">
+      </svg>
+    </div>
+    <div class="corner corner-bl">
+      <svg viewBox="0 0 100 100">
         <path d="M0,0 L38,0 Q28,18 38,38 L0,38 Q18,28 0,0 Z M10,10 L24,10 Q19,19 24,24 L10,24 Q15,19 10,10 Z" />
-      </svg></div>
-    <div class="corner corner-br"><svg viewBox="0 0 100 100">
+      </svg>
+    </div>
+    <div class="corner corner-br">
+      <svg viewBox="0 0 100 100">
         <path d="M0,0 L38,0 Q28,18 38,38 L0,38 Q18,28 0,0 Z M10,10 L24,10 Q19,19 24,24 L10,24 Q15,19 10,10 Z" />
-      </svg></div>
+      </svg>
+    </div>
+
     <div class="cover-ornament">
       <svg viewBox="0 0 100 110">
         <path d="M50,8 C60,25 78,28 82,48 C85,65 70,78 50,102 C30,78 15,65 18,48 C22,28 40,25 50,8 Z" opacity="0.9" />
@@ -761,27 +895,33 @@
           stroke="#c9a227" stroke-width="1.5" />
       </svg>
     </div>
+
     <p class="label">Undangan Resmi</p>
     <h1>Festival Budaya Nusantara</h1>
     <p class="subtitle">Merayakan Warisan Leluhur</p>
+
     <div class="guest-box">
       Kepada Yth.<br>
       <strong>Bapak/Ibu/Saudara/i</strong>
       <span style="font-size:0.88rem;opacity:0.8">Di Tempat</span>
     </div>
+
     <button class="btn-open" onclick="openInvitation()">Buka Undangan</button>
     <p class="cover-footer">Adat • Seni • Budaya Nusantara</p>
   </div>
 
+  <!-- MAIN CONTENT -->
   <div class="main" id="main">
+
     <section class="hero">
       <div class="container">
         <p class="salam">Assalamu’alaikum Warahmatullahi Wabarakatuh</p>
         <h1>Festival Budaya<br>Nusantara 2027</h1>
-        <p class="tagline">Satu Nusa, Satu Budaya</p>
+        <p class="text">Satu Nusa, Satu Budaya</p>
         <p class="date-main">Sabtu, 20 Juni 2027</p>
         <p class="desc">Mari bersama merayakan kekayaan adat, seni, dan tradisi dari berbagai penjuru Nusantara dalam
           satu panggung yang penuh makna.</p>
+
         <div class="countdown" id="countdown">
           <div class="countdown-item"><span class="num" id="days">00</span><span class="label">Hari</span></div>
           <div class="countdown-item"><span class="num" id="hours">00</span><span class="label">Jam</span></div>
@@ -795,9 +935,13 @@
       <div class="container">
         <div class="section-title">
           <h2>Tentang Acara</h2>
-          <div class="line"><span></span><svg viewBox="0 0 24 24">
+          <div class="line">
+            <span></span>
+            <svg viewBox="0 0 24 24">
               <path d="M12 2L14 9H21L15.5 13.5L17.5 21L12 16.5L6.5 21L8.5 13.5L3 9H10L12 2Z" />
-            </svg><span></span></div>
+            </svg>
+            <span></span>
+          </div>
         </div>
         <div class="about-card">
           <p><span class="highlight">Festival Budaya Nusantara</span> adalah wadah untuk menampilkan, melestarikan, dan
@@ -811,46 +955,87 @@
       <div class="container">
         <div class="section-title">
           <h2>Detail Acara</h2>
-          <div class="line"><span></span><svg viewBox="0 0 24 24">
+          <div class="line">
+            <span></span>
+            <svg viewBox="0 0 24 24">
               <path d="M12 2L14 9H21L15.5 13.5L17.5 21L12 16.5L6.5 21L8.5 13.5L3 9H10L12 2Z" />
-            </svg><span></span></div>
+            </svg>
+            <span></span>
+          </div>
         </div>
+
         <div class="event-card">
-          <h3><span class="icon"><svg viewBox="0 0 24 24">
+          <h3>
+            <span class="icon">
+              <svg viewBox="0 0 24 24">
                 <path
                   d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z" />
-              </svg></span>Hari & Waktu</h3>
-          <div class="event-detail"><svg viewBox="0 0 24 24">
+              </svg>
+            </span>
+            Hari & Waktu
+          </h3>
+          <div class="event-detail">
+            <svg viewBox="0 0 24 24">
               <path
                 d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z" />
-            </svg><span>Sabtu, 20 Juni 2027</span></div>
-          <div class="event-detail"><svg viewBox="0 0 24 24">
+            </svg>
+            <span>Sabtu, 20 Juni 2027</span>
+          </div>
+          <div class="event-detail">
+            <svg viewBox="0 0 24 24">
               <path
                 d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
-            </svg><span>09.00 – 21.00 WIB</span></div>
+            </svg>
+            <span>09.00 – 21.00 WIB</span>
+          </div>
         </div>
+
         <div class="event-card">
-          <h3><span class="icon"><svg viewBox="0 0 24 24">
+          <h3>
+            <span class="icon">
+              <svg viewBox="0 0 24 24">
                 <path
                   d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-              </svg></span>Lokasi</h3>
-          <div class="event-detail"><svg viewBox="0 0 24 24">
+              </svg>
+            </span>
+            Lokasi
+          </h3>
+          <div class="event-detail">
+            <svg viewBox="0 0 24 24">
               <path
                 d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-            </svg><span>Taman Budaya Yogyakarta<br>Jl. Sriwedari No. 1, Yogyakarta</span></div>
-          <a href="https://maps.google.com" target="_blank" class="btn-map"><svg viewBox="0 0 24 24">
+            </svg>
+            <span>Taman Budaya Yogyakarta<br>Jl. Sriwedari No. 1, Yogyakarta</span>
+          </div>
+          <a href="https://maps.google.com/?q=Taman+Budaya+Yogyakarta" target="_blank" class="btn-map">
+            <svg viewBox="0 0 24 24">
               <path
                 d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-            </svg>Lihat di Google Maps</a>
+            </svg>
+            Lihat di Google Maps
+          </a>
         </div>
+
         <div class="event-card">
-          <h3><span class="icon"><svg viewBox="0 0 24 24">
+          <h3>
+            <span class="icon">
+              <svg viewBox="0 0 24 24">
                 <path
                   d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-              </svg></span>Rundown Singkat</h3>
-          <div class="event-detail"><span style="padding-left:2px;">09.00 – Pembukaan & Doa<br>10.00 – Pagelaran Tari
-              Tradisional<br>13.00 – Pameran Kerajinan & Kuliner<br>16.00 – Dialog Budaya<br>19.00 – Malam Puncak Seni
-              Nusantara<br>21.00 – Penutup</span></div>
+              </svg>
+            </span>
+            Rundown Singkat
+          </h3>
+          <div class="event-detail">
+            <span style="padding-left:2px;">
+              09.00 – Pembukaan & Doa<br>
+              10.00 – Pagelaran Tari Tradisional<br>
+              13.00 – Pameran Kerajinan & Kuliner<br>
+              16.00 – Dialog Budaya<br>
+              19.00 – Malam Puncak Seni Nusantara<br>
+              21.00 – Penutup
+            </span>
+          </div>
         </div>
       </div>
     </section>
@@ -859,9 +1044,13 @@
       <div class="container">
         <div class="section-title">
           <h2>Yang Akan Hadir</h2>
-          <div class="line"><span></span><svg viewBox="0 0 24 24">
+          <div class="line">
+            <span></span>
+            <svg viewBox="0 0 24 24">
               <path d="M12 2L14 9H21L15.5 13.5L17.5 21L12 16.5L6.5 21L8.5 13.5L3 9H10L12 2Z" />
-            </svg><span></span></div>
+            </svg>
+            <span></span>
+          </div>
         </div>
         <div class="highlight-grid">
           <div class="highlight-item">
@@ -888,7 +1077,7 @@
       </div>
     </section>
 
-    <!-- GALERI FOTO -->
+    <!-- GALERI -->
     <section class="gallery">
       <div class="container">
         <div class="section-title">
@@ -902,48 +1091,63 @@
           </div>
         </div>
 
-
         <div class="gallery-grid">
           <div class="gallery-item">
-            <img src="./assets/img/Tari Saman.png" alt="Foto 1">
+            <img src="./assets/img/Tari Saman.png" alt="Tari Saman"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <div class="ph" style="display:none"><span>🎭</span>Tari Saman</div>
           </div>
-
           <div class="gallery-item">
-            <img src="./assets/img/foto 1.png" alt="Foto 2">
+            <img src="./assets/img/foto 1.png" alt="Foto 1"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <div class="ph" style="display:none"><span>📸</span>Foto 1</div>
           </div>
-
           <div class="gallery-item">
-            <img src="./assets/img/foto2.png" alt="Foto 3">
+            <img src="./assets/img/foto2.png" alt="Foto 2"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <div class="ph" style="display:none"><span>📸</span>Foto 2</div>
           </div>
-
           <div class="gallery-item">
-            <img src="./assets/img/foto3.png" alt="Foto 4">
+            <img src="./assets/img/foto3.png" alt="Foto 3"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <div class="ph" style="display:none"><span>📸</span>Foto 3</div>
           </div>
-
           <div class="gallery-item">
-            <img src="./assets/img/foto4.png" alt="Foto 5">
+            <img src="./assets/img/foto4.png" alt="Foto 4"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <div class="ph" style="display:none"><span>📸</span>Foto 4</div>
           </div>
-
           <div class="gallery-item">
-            <img src="./assets/img/foto5.png" alt="Foto 6">
+            <img src="./assets/img/foto5.png" alt="Foto 5"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <div class="ph" style="display:none"><span>📸</span>Foto 5</div>
           </div>
         </div>
-
       </div>
     </section>
 
+    <!-- RSVP -->
     <section class="rsvp">
       <div class="container">
         <div class="section-title">
           <h2>Konfirmasi Kehadiran</h2>
-          <div class="line"><span></span><svg viewBox="0 0 24 24">
+          <div class="line">
+            <span></span>
+            <svg viewBox="0 0 24 24">
               <path d="M12 2L14 9H21L15.5 13.5L17.5 21L12 16.5L6.5 21L8.5 13.5L3 9H10L12 2Z" />
-            </svg><span></span></div>
+            </svg>
+            <span></span>
+          </div>
         </div>
+
         <form class="rsvp-form" id="rsvpForm" onsubmit="submitRSVP(event)">
-          <div class="form-group"><label>Nama Lengkap</label><input type="text" name="nama" required
-              placeholder="Masukkan nama Anda" /></div>
-          <div class="form-group"><label>Asal / Instansi</label><input type="text" name="asal" placeholder="Opsional" />
+          <div class="form-group">
+            <label>Nama Lengkap</label>
+            <input type="text" name="nama" required placeholder="Masukkan nama Anda" />
+          </div>
+          <div class="form-group">
+            <label>Asal / Instansi</label>
+            <input type="text" name="asal" placeholder="Opsional" />
           </div>
           <div class="form-group">
             <label>Jumlah Orang</label>
@@ -964,21 +1168,29 @@
               <option value="tidak">Mohon Maaf, Tidak Dapat Hadir</option>
             </select>
           </div>
-          <div class="form-group"><label>Pesan / Saran</label><textarea name="pesan"
-              placeholder="Tulis pesan atau saran (opsional)"></textarea></div>
+          <div class="form-group">
+            <label>Pesan / Saran</label>
+            <textarea name="pesan" placeholder="Tulis pesan atau saran (opsional)"></textarea>
+          </div>
           <button type="submit" class="btn-submit">Kirim Konfirmasi</button>
         </form>
       </div>
     </section>
 
+    <!-- INFO -->
     <section class="info">
       <div class="container">
         <div class="section-title">
           <h2>Informasi Tambahan</h2>
-          <div class="line"><span></span><svg viewBox="0 0 24 24">
+          <div class="line">
+            <span></span>
+            <svg viewBox="0 0 24 24">
               <path d="M12 2L14 9H21L15.5 13.5L17.5 21L12 16.5L6.5 21L8.5 13.5L3 9H10L12 2Z" />
-            </svg><span></span></div>
+            </svg>
+            <span></span>
+          </div>
         </div>
+
         <div class="info-card">
           <h3>Dress Code</h3>
           <p>Disarankan memakai pakaian yang mencerminkan budaya daerah masing-masing (batik, tenun, kebaya, atau busana
@@ -995,6 +1207,7 @@
       </div>
     </section>
 
+    <!-- THANKS -->
     <section class="thanks">
       <div class="container">
         <h2>Terima Kasih</h2>
@@ -1006,58 +1219,104 @@
     </section>
   </div>
 
+  <!-- MUSIC BUTTON -->
   <button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Musik">
     <svg viewBox="0 0 24 24">
       <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
     </svg>
   </button>
+
   <audio id="bgMusic" loop preload="auto">
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg" />
   </audio>
 
   <script>
+    // ===== BUKA UNDANGAN =====
     function openInvitation() {
-      document.getElementById('cover').classList.add('hide');
-      document.getElementById('main').classList.add('show');
+      const cover = document.getElementById('cover');
+      const main = document.getElementById('main');
+
+      cover.classList.add('hide');
+
+      // Setelah transisi selesai, benar-benar hilangkan cover
+      setTimeout(() => {
+        cover.style.display = 'none';
+      }, 900);
+
+      main.classList.add('show');
+
+      // Play musik
       const music = document.getElementById('bgMusic');
-      music.play().then(() => document.getElementById('musicBtn').classList.add('playing')).catch(() => { });
+      music.play()
+        .then(() => document.getElementById('musicBtn').classList.add('playing'))
+        .catch(() => { });
+
       createPetals();
     }
+
+    // ===== COUNTDOWN =====
     const eventDate = new Date('2027-06-20T09:00:00+07:00').getTime();
+
     function updateCountdown() {
       const now = new Date().getTime();
       const dist = eventDate - now;
-      if (dist < 0) { ['days', 'hours', 'minutes', 'seconds'].forEach(id => document.getElementById(id).textContent = '00'); return; }
+
+      if (dist < 0) {
+        ['days', 'hours', 'minutes', 'seconds'].forEach(id => {
+          document.getElementById(id).textContent = '00';
+        });
+        return;
+      }
+
       document.getElementById('days').textContent = String(Math.floor(dist / (1000 * 60 * 60 * 24))).padStart(2, '0');
       document.getElementById('hours').textContent = String(Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
       document.getElementById('minutes').textContent = String(Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
       document.getElementById('seconds').textContent = String(Math.floor((dist % (1000 * 60)) / 1000)).padStart(2, '0');
     }
+
     updateCountdown();
     setInterval(updateCountdown, 1000);
+
+    // ===== MUSIK =====
     function toggleMusic() {
       const music = document.getElementById('bgMusic');
       const btn = document.getElementById('musicBtn');
-      if (music.paused) { music.play(); btn.classList.add('playing'); }
-      else { music.pause(); btn.classList.remove('playing'); }
+
+      if (music.paused) {
+        music.play();
+        btn.classList.add('playing');
+      } else {
+        music.pause();
+        btn.classList.remove('playing');
+      }
     }
+
+    // ===== RSVP =====
     function submitRSVP(e) {
       e.preventDefault();
+
       const form = e.target;
       const nama = form.nama.value.trim();
       const asal = form.asal.value.trim() || '-';
       const jumlah = form.jumlah.value;
       const status = form.status.value;
       const pesan = form.pesan.value.trim() || '-';
+
       const statusText = status === 'hadir' ? 'InsyaAllah Hadir' : 'Mohon Maaf, Tidak Dapat Hadir';
       const nomorWA = '6281436116967';
+
       const teks = `*Konfirmasi Kehadiran - Festival Budaya Nusantara*%0A%0ANama: ${nama}%0AAsal/Instansi: ${asal}%0AJumlah Orang: ${jumlah}%0AStatus: ${statusText}%0APesan: ${pesan}`;
+
+      // PERBAIKAN: sekarang pakai tanda kurung yang benar
       window.open(`https://wa.me/${nomorWA}?text=${teks}`, '_blank');
+
       alert('Terima kasih ' + nama + '!\nAnda akan diarahkan ke WhatsApp untuk mengirim konfirmasi.');
       form.reset();
     }
+
+    // ===== PETALS =====
     function createPetals() {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 12; i++) {
         const p = document.createElement('div');
         p.className = 'petal';
         p.style.left = Math.random() * 100 + 'vw';
@@ -1068,6 +1327,30 @@
         document.body.appendChild(p);
       }
     }
+
+    // ===== REVEAL ON SCROLL =====
+    document.addEventListener('DOMContentLoaded', () => {
+      const revealTargets = document.querySelectorAll(
+        '.section-title, .about-card, .event-card, .highlight-item, .gallery-item, .rsvp-form, .info-card, .thanks .container'
+      );
+
+      revealTargets.forEach((el) => el.classList.add('js-reveal'));
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+
+        revealTargets.forEach((el) => observer.observe(el));
+      } else {
+        revealTargets.forEach((el) => el.classList.add('is-visible'));
+      }
+    });
   </script>
 </body>
 
